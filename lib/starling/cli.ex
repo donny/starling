@@ -1,4 +1,6 @@
 defmodule Starling.CLI do
+  @default_count 10
+
   def main(argv) do
     argv
     |> parse_args
@@ -27,10 +29,13 @@ defmodule Starling.CLI do
   def process({suburb, state, postcode}) do
     Starling.Domain.fetch(suburb, state, postcode)
     |> decode_response
-    |> Enum.take(1)
-    |> display_table
-    # |> Enum.take(count)
-    # |> print_table_for_columns(["number", "created_at", "title"])
+    |> Enum.take(@default_count)
+    |> process(headers())
+    |> display_table(headers())
+  end
+
+  def headers do
+    ["AdId", "DisplayableAddress", "DisplayPrice", "PropertyType", "Bedrooms", "Bathrooms", "Carspaces"]
   end
 
   def decode_response({:ok, body}) do
@@ -45,14 +50,16 @@ defmodule Starling.CLI do
     System.halt(2)
   end
 
-  def display_table(listings) do
-    # IO.puts(listings)
-    Enum.each listings, fn listing ->
-      listing
-      |> Map.get("PropertyType")
-      # |> IO.inspect
+  def process(listings, headers) do
+    Enum.map listings, fn listing ->
+      for header <- headers do
+        listing[header]
+      end
     end
-    # Enum.sort list_of_issues,
-    #   fn i1, i2 -> Map.get(i1, "created_at") <= Map.get(i2, "created_at") end
+  end
+
+  def display_table(listings, headers) do
+    TableRex.quick_render!(listings, headers)
+    |> IO.puts
   end
 end
