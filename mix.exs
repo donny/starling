@@ -3,7 +3,10 @@ defmodule Starling.Mixfile do
 
   def project do
     [app: :starling,
+     escript: escript_config(),
      version: "0.1.0",
+     name: "Starling",
+     source_url: "https://github.com/donny/starling",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -33,5 +36,9 @@ defmodule Starling.Mixfile do
       {:poison, "~> 3.1"},
       {:table_rex, "~> 0.10.0"}
     ]
+  end
+
+  defp escript_config do
+    [ main_module: Starling.CLI ]
   end
 end
