@@ -3,7 +3,7 @@ defmodule Starling.Domain do
   @domain_url Application.get_env(:starling, :domain_url)
 
   def fetch(suburb, state, postcode) do
-    search_url
+    search_url()
     |> HTTPoison.get(@user_agent, params: search_params(suburb, state, postcode))
     |> handle_response
   end
@@ -13,14 +13,14 @@ defmodule Starling.Domain do
   end
 
   def search_params(suburb, state, postcode) do
-    %{suburb: suburb, state: state, pcodes: postcode}
+    %{sub: suburb, state: state, pcodes: postcode}
   end
 
   def handle_response({:ok, %{status_code: 200, body: body}}) do
     {:ok, Poison.Parser.parse!(body)}
   end
 
-  def handle_response({_, %{status_code: status, body: body}}) do
+  def handle_response({_, %{status_code: _, body: body}}) do
     {:error, Poison.Parser.parse!(body)}
   end
 end
