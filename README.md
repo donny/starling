@@ -10,7 +10,7 @@ This project is part of [52projects](https://donny.github.io/52projects/) and th
 
 Building from the last two projects, [Quail](https://github.com/donny/quail) and [Raven](https://github.com/donny/raven), and to have better understanding of Elixir; Starling allows a user to search and display properties based on a specified suburb from the terminal. The search results are displayed in a table and the screenshot below shows the app in action:
 
-Screenshot
+![Screenshot](https://raw.githubusercontent.com/donny/starling/master/screenshot.png)
 
 ### Implementation
 
