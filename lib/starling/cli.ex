@@ -30,7 +30,7 @@ defmodule Starling.CLI do
     Starling.Domain.fetch(suburb, state, postcode)
     |> decode_response
     |> Enum.take(@default_count)
-    |> process(headers())
+    |> process_results(headers())
     |> display_table(headers())
   end
 
@@ -50,7 +50,7 @@ defmodule Starling.CLI do
     System.halt(2)
   end
 
-  def process(listings, headers) do
+  def process_results(listings, headers) do
     Enum.map listings, fn listing ->
       for header <- headers do
         listing[header]
