@@ -14,7 +14,7 @@ Building from the last two projects, [Quail](https://github.com/donny/quail) and
 
 ### Implementation
 
-...
+Starling shows the search results in a table using [TableRex](https://github.com/djm/table_rex) which is an Elixir app that generates text-based tables for display.
 
 ### Conclusion
 
